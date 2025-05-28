@@ -1,11 +1,32 @@
-import React, { useState } from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { useRouter, Link } from "expo-router";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Animated,
+} from "react-native";
+import { useRouter } from "expo-router";
 import { Icon } from "@rneui/themed";
 
 export default function Profile() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState('posts');
+  const [activeTab, setActiveTab] = useState("posts");
+  const animation = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(animation, {
+      toValue: activeTab === "posts" ? 0 : 1,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+  }, [activeTab]);
+
+  const translateX = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0%", "100%"],
+  });
 
   return (
     <View style={styles.container}>
@@ -41,51 +62,43 @@ export default function Profile() {
 
           <Text style={styles.userName}>Nome do Usuário</Text>
           <Text style={styles.description}>Descrição</Text>
-          
-          <View
-          style={{
-            width: "80%",
-            backgroundColor: "gray",
-            borderWidth: 2,
-            borderColor: "gray",
-            borderRadius: 30,
-            flexDirection: "row",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            marginBottom: 20,
-            height: 50,
-          }}
-          >
+
+          {/* Animated Switch */}
+          <View style={styles.switchWrapper}>
+            <Animated.View
+              style={[
+                styles.animatedBackground,
+                {
+                  transform: [{ translateX }],
+                },
+              ]}
+            />
             <TouchableOpacity
-              onPress={() => setActiveTab('posts')}
-              style={{
-                width: "50%",
-                backgroundColor: activeTab === 'posts' ? "white" : "gray",
-                borderRadius: 30,
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100%",
-              }}
+              onPress={() => setActiveTab("posts")}
+              style={styles.switchButton}
             >
-              <Text style={{ color: activeTab === 'posts' ? "#000" : "#fff" }}>Posts</Text>
+              <Text style={activeTab === "posts" ? styles.activeText : styles.inactiveText}>
+                Posts
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => setActiveTab('info')}
-              style={{
-                width: "50%",
-                backgroundColor: activeTab === 'info' ? "white" : "gray",
-                borderRadius: 30,
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100%",
-              }}
+              onPress={() => setActiveTab("info")}
+              style={styles.switchButton}
             >
-              <Text style={{ color: activeTab === 'info' ? "#000" : "#fff" }}>Informações</Text>    
+              <Text style={activeTab === "info" ? styles.activeText : styles.inactiveText}>
+                Informações
+              </Text>
             </TouchableOpacity>
           </View>
 
-          <View style={[styles.form, { width: "80%", padding: 20, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }]} />
-
+          {/* Conteúdo */}
+          <View style={{ width: "80%", marginTop: 20 }}>
+            {activeTab === "posts" ? (
+              <Text style={styles.contentText}>Conteúdo dos Posts</Text>
+            ) : (
+              <Text style={styles.contentText}>Informações do usuário</Text>
+            )}
+          </View>
         </View>
       </View>
     </View>
@@ -161,7 +174,6 @@ const styles = StyleSheet.create({
   actionRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "space-between",
     width: "100%",
     paddingHorizontal: 20,
     marginBottom: 20,
@@ -179,27 +191,43 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20,
   },
-  button: {
-    backgroundColor: "#007bff",
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 10,
-  },
-  buttonText: {
-    color: "white",
-    fontWeight: "bold",
-  },
-  backButton: {
+  switchWrapper: {
+    width: "80%",
+    height: 50,
+    backgroundColor: "gray",
+    borderColor: "gray",
+    borderRadius: 30,
+    borderWidth: 2,
     flexDirection: "row",
-    alignItems: "center",
-    marginTop: 20,
-    backgroundColor: "#ccc",
-    padding: 10,
-    borderRadius: 5,
+    position: "relative",
+    overflow: "hidden",
+    marginBottom: 20,
   },
-  backButtonText: {
-    color: "#333",
+  animatedBackground: {
+    position: "absolute",
+    width: "50%",
+    height: "100%",
+    backgroundColor: "white",
+    borderRadius: 30,
+    zIndex: 0,
+  },
+  switchButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 1,
+  },
+  activeText: {
+    color: "#000",
     fontWeight: "bold",
-    marginLeft: 10,
+  },
+  inactiveText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  contentText: {
+    fontSize: 16,
+    textAlign: "center",
+    color: "#333",
   },
 });
