@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter, Link } from "expo-router";
 import { Icon } from "@rneui/themed";
 
 export default function Profile() {
@@ -41,13 +41,52 @@ export default function Profile() {
           <Text style={styles.userName}>Nome do Usuário</Text>
           <Text style={styles.description}>Descrição</Text>
           
-          <View style={{ width: "80%", color: "#333", backgroundColor: "gray", borderWidth: 2, borderColor: 'gray', borderRadius: 30, flexDirection: "row", justifyContent: "flex-start", alignItems: "center", marginBottom: 20, height: 50 }}>
-            <View style={{ width: "50%", color: "#333", backgroundColor: "white", borderRadius: 30, flexDirection: "row", justifyContent: "space-around", alignItems: "center", height: "100%" }}>
-                <Text>Posts</Text>
+          <View
+          style={{
+            width: "80%",
+            color: "#333",
+            backgroundColor: "gray",
+            borderWidth: 2,
+            borderColor: "gray",
+            borderRadius: 30,
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            marginBottom: 20,
+            height: 50,
+          }}
+          >
+            <View
+              style={{
+                width: "50%",
+                color: "#333",
+                backgroundColor: "white",
+                borderRadius: 30,
+                flexDirection: "row",
+                justifyContent: "space-around",
+                alignItems: "center",
+                height: "100%",
+              }}
+            >
+              <Text>Posts</Text>
             </View>
-            <View style={{ width: "50%", color: "#333", backgroundColor: "gray", borderRadius: 30, flexDirection: "row", justifyContent: "space-around", alignItems: "center", height: "100%" }}>
+            <Link
+              href="/(profile_options)/information"
+              asChild
+            >
+              <View style={{
+                width: "50%",
+                color: "#333",
+                backgroundColor: "gray",
+                borderRadius: 30,
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+              }}>
                 <Text>Informações</Text>
-            </View>
+              </View>
+            </Link>
           </View>
 
           <View style={[styles.form, { width: "80%", padding: 20, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }]} />
