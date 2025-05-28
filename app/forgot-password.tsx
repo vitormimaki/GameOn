@@ -1,26 +1,17 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { Link } from 'expo-router';
-import { Icon } from '@rneui/themed'; // Ensure you have @rneui/themed installed
-import { StyleSheet } from 'react-native'; // Import StyleSheet for styling
+import { Icon } from '@rneui/themed';
 
 export default function ForgotPassword() {
     return (
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-            <Text style={{ fontSize: 24, marginBottom: 20 }}>Esqueci minha senha</Text>
-            <Text style={{ fontSize: 16, marginBottom: 20 }}>
+        <View style={styles.container}>
+            <Text style={styles.header}>Esqueci minha senha</Text>
+            <Text style={styles.description}>
                 Digite seu e-mail para receber instruções de recuperação de senha.
             </Text>
             <TextInput
-                style={{
-                    width: "80%",
-                    borderColor: "#ccc",
-                    borderWidth: 1,
-                    padding: 10,
-                    borderRadius: 5,
-                    marginBottom: 10,
-                    color: "#333",
-                }}
+                style={styles.input}
                 placeholder="Digite seu e-mail"
                 placeholderTextColor="#999"
                 keyboardType="email-address"
@@ -29,29 +20,72 @@ export default function ForgotPassword() {
                 returnKeyType="done"
                 onSubmitEditing={() => console.log("E-mail enviado")}
             />
-            <TouchableOpacity
-                style={{
-                    backgroundColor: "black",
-                    padding: 10,
-                    borderRadius: 5,
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gap: 10,
-                }}
-                onPress={() => console.log("E-mail enviado")}
-            >
+            <TouchableOpacity style={styles.button} onPress={() => console.log("E-mail enviado")}>
                 <Icon name="envelope" type="font-awesome" color="#fff" />
-                <Text style={{ color: "#fff", fontSize: 18, textAlign: "center", fontWeight: "bold" }}>
-                    Enviar e-mail de recuperação
-                </Text>
+                <Text style={styles.buttonText}>Enviar e-mail de recuperação</Text>
             </TouchableOpacity>
-            <Link href="/" style={{ marginTop: 20 }}>
-                
-                <Text style={{ color: 'blue', textDecorationLine: 'underline' }}>
-                    Voltar para o login
-                </Text>
+            <Link href="/" style={styles.link}>
+                <Text style={styles.linkText}>Voltar para o login</Text>
             </Link>
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#f5f5f5",
+        padding: 20,
+    },
+    header: {
+        fontSize: 24,
+        fontWeight: "bold",
+        marginBottom: 20,
+        color: "#333",
+        textAlign: "center",
+    },
+    description: {
+        fontSize: 16,
+        marginBottom: 20,
+        color: "#666",
+        textAlign: "center",
+    },
+    input: {
+        width: "100%",
+        maxWidth: 400,
+        borderColor: "#ccc",
+        borderWidth: 1,
+        padding: 10,
+        borderRadius: 5,
+        marginBottom: 20,
+        color: "#333",
+        backgroundColor: "#fff",
+    },
+    button: {
+        backgroundColor: "black",
+        padding: 15,
+        borderRadius: 5,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        maxWidth: 400,
+        marginBottom: 20,
+    },
+    buttonText: {
+        color: "#fff",
+        fontSize: 16,
+        fontWeight: "bold",
+        marginLeft: 10,
+    },
+    link: {
+        marginTop: 10,
+    },
+    linkText: {
+        color: "blue",
+        textDecorationLine: "underline",
+        fontSize: 16,
+    },
+});
