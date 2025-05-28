@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useRouter, Link } from "expo-router";
 import { Icon } from "@rneui/themed";
 
 export default function Profile() {
   const router = useRouter();
+  const [activeTab, setActiveTab] = useState('posts');
 
   return (
     <View style={styles.container}>
@@ -44,7 +45,6 @@ export default function Profile() {
           <View
           style={{
             width: "80%",
-            color: "#333",
             backgroundColor: "gray",
             borderWidth: 2,
             borderColor: "gray",
@@ -56,37 +56,32 @@ export default function Profile() {
             height: 50,
           }}
           >
-            <View
+            <TouchableOpacity
+              onPress={() => setActiveTab('posts')}
               style={{
                 width: "50%",
-                color: "#333",
-                backgroundColor: "white",
+                backgroundColor: activeTab === 'posts' ? "white" : "gray",
                 borderRadius: 30,
-                flexDirection: "row",
-                justifyContent: "space-around",
+                justifyContent: "center",
                 alignItems: "center",
                 height: "100%",
               }}
             >
-              <Text>Posts</Text>
-            </View>
-            <Link
-              href="/(profile_options)/information"
-              asChild
-            >
-              <View style={{
+              <Text style={{ color: activeTab === 'posts' ? "#000" : "#fff" }}>Posts</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => setActiveTab('info')}
+              style={{
                 width: "50%",
-                color: "#333",
-                backgroundColor: "gray",
+                backgroundColor: activeTab === 'info' ? "white" : "gray",
                 borderRadius: 30,
-                flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
                 height: "100%",
-              }}>
-                <Text>Informações</Text>
-              </View>
-            </Link>
+              }}
+            >
+              <Text style={{ color: activeTab === 'info' ? "#000" : "#fff" }}>Informações</Text>    
+            </TouchableOpacity>
           </View>
 
           <View style={[styles.form, { width: "80%", padding: 20, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }]} />
