@@ -89,3 +89,9 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
 });
+
+// Exemplo de uso:
+// <Switch
+//   activeTab={activeTab}
+//   onChangeTab={setActiveTab}
+// />

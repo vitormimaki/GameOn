@@ -52,7 +52,14 @@ export default function Profile() {
           <Switch activeTab={activeTab} onChangeTab={setActiveTab} />
 
           {/* Conteúdo */}
-          <View style={{ width: "80%", marginTop: 20 }}>
+          <View style={
+            [styles.form, {
+            width: "80%",
+            padding: 20,
+            borderBottomLeftRadius: 0,
+            borderBottomRightRadius: 0,
+            }]
+          }>
             {activeTab === "posts" ? (
               <Text style={styles.contentText}>Conteúdo dos Posts</Text>
             ) : (
