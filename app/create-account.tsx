@@ -1,44 +1,119 @@
-import React from "react";
-import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import {
+    Text,
+    TouchableOpacity,
+    View,
+    StyleSheet,
+    Platform,
+} from "react-native";
 import { Input, Icon } from "@rneui/themed";
-import { Link } from "expo-router";
+import { useRouter } from "expo-router";
 
 export default function CreateAccount() {
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const router = useRouter();
+
+    const handleCreateAccount = () => {
+        if (password !== confirmPassword) {
+            setErrorMessage("As senhas não coincidem");
+        } else {
+            console.log("Conta criada com sucesso!");
+            setErrorMessage(""); // Clear error message
+        }
+    };
+
     return (
         <View style={styles.container}>
-            <Link href="/" style={styles.backLink} accessibilityRole="link" accessibilityLabel="Voltar para a página inicial">
-                <Text style={styles.backLinkText}>Voltar</Text>
-            </Link>
-            <Text style={styles.header} accessibilityRole="header" accessibilityLabel="Game On">
-                Game On
-            </Text>
-            <Text style={styles.subHeader} accessibilityRole="text" accessibilityLabel="Criar uma conta">
-                Criar uma conta
-            </Text>
-            <Input
-                placeholder="Email"
-                leftIcon={<Icon name="user" type="font-awesome" />}
-                containerStyle={styles.inputContainer}
-                inputStyle={styles.input}
-                leftIconContainerStyle={styles.iconContainer}
-            />
-            <Input
-                placeholder="Senha"
-                errorStyle={styles.errorText}
-                errorMessage="Senha inválida"
-                leftIcon={<Icon name="lock" type="font-awesome" />}
-                secureTextEntry={true}
-                containerStyle={styles.inputContainer}
-                inputStyle={styles.input}
-                leftIconContainerStyle={styles.iconContainer}
-            />
-            <TouchableOpacity style={styles.button} onPress={() => console.log("Criar conta pressed")}>
-                <Icon name="user-plus" type="font-awesome" color="#fff" />
-                <Text style={styles.buttonText}>Criar conta</Text>
-            </TouchableOpacity>
+            <View style={styles.form} accessibilityRole="form" accessibilityLabel="Create Account Form">
+                <TouchableOpacity
+                    onPress={() => router.navigate("/")}
+                    style={[styles.backLink, {cursor: 'pointer'}]}
+                    accessibilityRole="link"
+                    accessibilityLabel="Voltar para a página inicial"
+                >
+                    <Icon name="arrow-back" type="ionicon" color="#000" />
+                </TouchableOpacity>
+                <View style={{ width: "100%", alignItems: "center" }}>
+                    <Text style={styles.header} accessibilityRole="header" accessibilityLabel="Game On">
+                        Game On
+                    </Text>
+                    <Text style={styles.subHeader} accessibilityRole="text" accessibilityLabel="Criar uma conta">
+                        Criar uma conta
+                    </Text>
+                    <Input
+                        placeholder="(99) 99999-9999"
+                        autoCapitalize="none"
+                        autoComplete="tel"
+                        autoCorrect={false}
+                        textContentType="telephoneNumber"
+                        keyboardType="phone-pad"
+                        leftIcon={<Icon name="phone" type="font-awesome" />}
+                        containerStyle={styles.inputContainer}
+                        inputStyle={styles.input}
+                        leftIconContainerStyle={styles.iconContainer}
+                    />
+                    <Input
+                        placeholder="Email"
+                        autoCapitalize="none"
+                        autoComplete="email"
+                        autoCorrect={false}
+                        textContentType="emailAddress"
+                        keyboardType="email-address"
+                        leftIcon={<Icon name="user" type="font-awesome" />}
+                        containerStyle={styles.inputContainer}
+                        inputStyle={styles.input}
+                        leftIconContainerStyle={styles.iconContainer}
+                    />
+                    <Input
+                        placeholder="Senha"
+                        autoCapitalize="none"
+                        autoComplete="password"
+                        autoCorrect={false}
+                        textContentType="password"
+                        leftIcon={
+                            password === confirmPassword
+                                ? <Icon name="lock" type="entypo" />
+                                : <Icon name="lock-open" type="entypo" />
+                        }
+                        secureTextEntry={true}
+                        containerStyle={styles.inputContainer}
+                        inputStyle={styles.input}
+                        leftIconContainerStyle={styles.iconContainer}
+                        onChangeText={(value) => setPassword(value)} // Update password state
+                    />
+                    <Input
+                        placeholder="Confirmar Senha"
+                        autoCapitalize="none"
+                        autoComplete="password"
+                        autoCorrect={false}
+                        textContentType="password"
+                        leftIcon={
+                            password === confirmPassword
+                                ? <Icon name="lock" type="entypo" />
+                                : <Icon name="lock-open" type="entypo" />
+                        }
+                        secureTextEntry={true}
+                        containerStyle={styles.inputContainer}
+                        inputStyle={styles.input}
+                        leftIconContainerStyle={styles.iconContainer}
+                        onChangeText={(value) => setConfirmPassword(value)} // Update confirmPassword state
+                    />
+                    {errorMessage ? (
+                        <Text style={styles.errorText}>{errorMessage}</Text>
+                    ) : null}
+                </View>
+                <TouchableOpacity style={styles.button} onPress={handleCreateAccount}>
+                    <Icon name="user-plus" type="font-awesome" color="#fff" />
+                    <Text style={styles.buttonText}>Criar conta</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }
+
+const width = Platform.OS === "web" ? "100%" : "90%";
 
 const styles = StyleSheet.create({
     container: {
@@ -46,14 +121,25 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#f5f5f5",
+    },
+    form: {
+        justifyContent: "space-between",
+        width: width,
+        height: "100%",
+        maxWidth: 400,
         padding: 20,
+        borderColor: "#ccc",
+        borderWidth: 1,
+        borderRadius: 10,
+        backgroundColor: "#fff",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
     backLink: {
         position: "absolute",
-        top: 40,
-        left: 20,
-        padding: 10,
-        backgroundColor: "#007bff",
         borderRadius: 5,
         zIndex: 1,
     },
@@ -94,9 +180,11 @@ const styles = StyleSheet.create({
     },
     errorText: {
         color: "red",
+        marginBottom: 10,
+        textAlign: "center",
     },
     button: {
-        backgroundColor: "#007bff",
+        backgroundColor: "#000",
         paddingVertical: 15,
         borderRadius: 5,
         flexDirection: "row",

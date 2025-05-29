@@ -18,7 +18,7 @@ export default function Index() {
         </Text>
 
         <Input
-          placeholder="Email"
+          placeholder="Email ou Telefone"
           leftIcon={<Icon name="user" type="font-awesome" />}
           containerStyle={styles.inputContainer}
           inputStyle={styles.input}
@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
   },
   form: {
     width: width,
+    height: "100%",
     maxWidth: 400,
     padding: 20,
     borderColor: "#ccc",
