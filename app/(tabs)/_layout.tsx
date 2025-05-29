@@ -1,28 +1,33 @@
 import { Tabs } from 'expo-router';
 import { Icon } from '@rneui/themed';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 export default function Layout() {
+    const isWeb = Platform.OS === 'web';
+
     return (
         <Tabs
             screenOptions={{
                 tabBarStyle: {
-                    backgroundColor: '#007bff',
-                    height: 60,
+                    backgroundColor: '#000',
+                    height: isWeb ? 60 : 50, // Adjust height for web
                 },
                 tabBarActiveTintColor: 'white',
                 tabBarInactiveTintColor: '#cce4ff',
                 headerShown: false,
                 tabBarLabelStyle: {
-                    fontSize: 12,
+                    fontSize: isWeb ? 12 : 0, // Hide label text on non-web platforms
                     fontWeight: 'bold',
+                },
+                tabBarItemStyle: {
+                    justifyContent: 'center', // Center the icons
                 },
             }}
         >
             <Tabs.Screen
                 name="home"
                 options={{
-                    tabBarLabel: 'Home',
+                    tabBarLabel: isWeb ? 'Home' : '', // Empty string for non-web platforms
                     tabBarIcon: ({ color, size, focused }) => (
                         <Icon
                             name={focused ? "home" : "home-outline"}
@@ -38,7 +43,7 @@ export default function Layout() {
             <Tabs.Screen
                 name="community"
                 options={{
-                    tabBarLabel: 'Comunidade',
+                    tabBarLabel: isWeb ? 'Comunidade' : '', // Empty string for non-web platforms
                     tabBarIcon: ({ color, size, focused }) => (
                         <Icon
                             name={focused ? "people" : "people-outline"}
@@ -54,7 +59,7 @@ export default function Layout() {
             <Tabs.Screen
                 name="events"
                 options={{
-                    tabBarLabel: 'Eventos',
+                    tabBarLabel: isWeb ? 'Eventos' : '', // Empty string for non-web platforms
                     tabBarIcon: ({ color, size, focused }) => (
                         <Icon
                             name={focused ? "add-circle" : "add-circle-outline"}
@@ -70,8 +75,7 @@ export default function Layout() {
             <Tabs.Screen
                 name="notification"
                 options={{
-                    headerShown: true,
-                    tabBarLabel: 'Notificações',
+                    tabBarLabel: isWeb ? 'Notificações' : '', // Empty string for non-web platforms
                     tabBarIcon: ({ color, size, focused }) => (
                         <Icon
                             name={focused ? "notifications" : "notifications-outline"}
@@ -87,7 +91,7 @@ export default function Layout() {
             <Tabs.Screen
                 name="profile"
                 options={{
-                    tabBarLabel: 'Perfil',
+                    tabBarLabel: isWeb ? 'Perfil' : '', // Empty string for non-web platforms
                     tabBarIcon: ({ color, size, focused }) => (
                         <Icon
                             name={focused ? "person" : "person-outline"}
@@ -107,5 +111,5 @@ export default function Layout() {
 const styles = StyleSheet.create({
     iconStyle: {
         cursor: 'pointer',
-    }
+    },
 });

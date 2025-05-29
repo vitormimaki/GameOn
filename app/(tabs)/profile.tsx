@@ -5,6 +5,8 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  Platform,
+  Dimensions,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { Icon } from "@rneui/themed";
@@ -13,6 +15,7 @@ import { Switch } from "../../components/Switch";
 export default function Profile() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<"posts" | "info">("posts");
+  
 
   return (
     <View style={styles.container}>
@@ -22,7 +25,7 @@ export default function Profile() {
           <TouchableOpacity onPress={() => console.log("Settings pressed")}>
             <Icon name="settings-outline" type="ionicon" color="white" size={24} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => console.log("Logout pressed")}>
+          <TouchableOpacity onPress={() => router.navigate("/")}>
             <Icon name="log-out-outline" type="ionicon" color="white" size={24} />
           </TouchableOpacity>
         </View>
@@ -32,7 +35,7 @@ export default function Profile() {
           <Image
             source={require("../../assets/images/icon.jpeg")}
             style={styles.image}
-          />
+            />
         </View>
 
         {/* Bottom Section */}
@@ -54,10 +57,10 @@ export default function Profile() {
           {/* Conteúdo */}
           <View style={
             [styles.form, {
-            width: "80%",
-            padding: 20,
-            borderBottomLeftRadius: 0,
-            borderBottomRightRadius: 0,
+              width: "80%",
+              padding: 20,
+              borderBottomLeftRadius: 0,
+              borderBottomRightRadius: 0,
             }]
           }>
             {activeTab === "posts" ? (
@@ -72,18 +75,27 @@ export default function Profile() {
   );
 }
 
+const isWeb = Platform.OS === "web";
+const { width } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
+
+const maxWidth = isWeb ? {maxWidth: 400} : width;
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: width,
+    maxWidth,
+    height: height,
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#f5f5f5",
-    padding: 20,
   },
   form: {
     flex: 1,
-    width: "100%",
-    maxWidth: 400,
+    width: width,
+    height: '100%',
+    maxWidth,
     borderColor: "#ccc",
     borderWidth: 1,
     borderRadius: 10,
