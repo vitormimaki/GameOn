@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     borderColor: "#000",
     paddingVertical: 6,
     paddingHorizontal: 12,
-    borderRadius: 20,
+    borderRadius: 10,
     marginLeft: 12,
   },
   messageButtonText: {
