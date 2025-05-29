@@ -3,6 +3,7 @@ import { Text, View, StyleSheet } from "react-native";
 import { Link } from "expo-router";
 import { Icon } from "@rneui/themed";
 import { Stack } from "expo-router";
+
 export default function Home() {
     return (
         <View style={styles.container}>
