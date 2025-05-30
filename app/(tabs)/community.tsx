@@ -1,12 +1,11 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
-import { Link } from "expo-router";
-import { Icon } from "@rneui/themed";
+import { Input, Icon } from "@rneui/themed";
 import { Stack } from "expo-router";
 
 export default function Community() {
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { justifyContent: "flex-start" }]}>
             <Stack.Screen
                 options={{
                     headerTitle: "Comunidade",
@@ -14,13 +13,26 @@ export default function Community() {
                     headerStyle: styles.header,
                 }}
             />
-            <Text style={styles.subHeader} accessibilityRole="text" accessibilityLabel="Comunidade">
-                Comunidade
-            </Text>
-            {/* <Link href="/settings" style={styles.link}>
-                <Icon name="cog" type="font-awesome" color="#007bff" />
-                <Text style={styles.linkText}>Configurações</Text>
-            </Link> */}
+            <View>
+
+                <Input
+                    placeholder="Buscar na comunidade"
+                    leftIcon={<Icon name="search" type="font-awesome" />}
+                    rightIcon={
+                        <Icon
+                            name="filter"
+                            type="font-awesome"
+                            color="#000"
+                            onPress={() => console.log()}
+                        />
+                    }
+                    containerStyle={styles.inputContainer}
+                    inputStyle={styles.input}
+                    leftIconContainerStyle={{ marginRight: 10 }}
+                    rightIconContainerStyle={{ marginLeft: 10 }}
+                />
+
+            </View>
         </View>
     );
 }
@@ -45,30 +57,18 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: "bold",
     },
-    subHeader: {
-        fontSize: 24,
+    inputContainer: {
+        width: "100%",
         marginBottom: 20,
-        color: "#333",
-        textAlign: "center",
     },
-    link: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginTop: 20,
-        padding: 10,
-        backgroundColor: "#fff",
-        borderRadius: 5,
+    input: {
+        color: "#333",
         borderColor: "#ccc",
         borderWidth: 1,
-        width: "100%",
-        maxWidth: 400,
-        justifyContent: "center",
+        padding: 10,
+        borderRadius: 5,
     },
-    linkText: {
-        color: "#007bff",
-        fontSize: 16,
-        fontWeight: "bold",
-        marginLeft: 10,
-        textDecorationLine: "none",
+    iconContainer: {
+        marginRight: 10,
     },
 });

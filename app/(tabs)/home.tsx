@@ -1,79 +1,79 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
-import { Link } from "expo-router";
-import { Icon } from "@rneui/themed";
-import { Stack } from "expo-router";
-import SwipeCard from "../../components/Card";
+import { View, StyleSheet } from "react-native";
+import { SwipeDeck } from "@/components/SwipeDeck";
 
-export default function Home() {
+type Tag = {
+    label: string;
+    color: string;
+};
 
-    const exampleProfiles = [
+type Profile = {
+    id: string;
+    name: string;
+    age: number;
+    image: any;
+    tags: Tag[];
+};
+
+const profiles: Profile[] = [
     {
+        id: "1",
         name: "Alice",
         age: 25,
-        image: require('../../assets/images/icon.jpeg'),
+        image: require("../../assets/images/icon.jpeg"),
         tags: [
-        { label: "Adventurous", color: "#ff6347" },
-        { label: "Traveler", color: "#4682b4" },
+            { label: "Esportes", color: "#A93F19" },
+            { label: "Jogos", color: "#3B36DA" },
         ],
     },
     {
-        name: "Bob",
+        id: "2",
+        name: "Bruno",
         age: 30,
-        image: require('../../assets/images/icon.jpeg'),
+        image: require("../../assets/images/icon.jpeg"),
         tags: [
-        { label: "Gamer", color: "#32cd32" },
-        { label: "Tech Enthusiast", color: "#ffa500" },
+            { label: "Esportes", color: "#A93F19" },
+            { label: "Esportes", color: "#A93F19" },
         ],
     },
-    ];
+    {
+        id: "3",
+        name: "Carla",
+        age: 28,
+        image: require("../../assets/images/icon.jpeg"),
+        tags: [
+            { label: "Jogos", color: "#3B36DA" },
+            { label: "Jogos", color: "#3B36DA" },
+        ],
+    },
+];
 
-    const handleSwipeRight = (profile) => {
-        console.log(`Swiped right on ${profile.name}`);
+const Home = () => {
+    const handleSwipeRight = (profile: Profile) => {
+        console.log("Gostou de:", profile.name);
     };
-    const handleSwipeLeft = (profile) => {
-        console.log(`Swiped left on ${profile.name}`);
+
+    const handleSwipeLeft = (profile: Profile) => {
+        console.log("Rejeitou:", profile.name);
     };
 
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Stack.Screen
-                options={{
-                    headerTitle: "Game On",
-                    headerTitleStyle: styles.headerTitle,
-                    headerStyle: styles.header,
-                }}
+        <View style={styles.container}>
+            <SwipeDeck
+                data={profiles}
+                onSwipeRight={handleSwipeRight}
+                onSwipeLeft={handleSwipeLeft}
             />
-            {exampleProfiles.map((profile, index) => (
-                <SwipeCard
-                    key={index}
-                    profile={profile}
-                    onSwipeRight={handleSwipeRight}
-                    onSwipeLeft={handleSwipeLeft}
-                />
-            ))}
         </View>
     );
-}
+};
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#f5f5f5",
-        padding: 20,
-    },
-    header: {
-        backgroundColor: "#007bff",
-        padding: 10,
-        width: "100%",
-        alignItems: "center",
-        borderBottomWidth: 1,
-        borderBottomColor: "#ccc",
-    },
-    headerTitle: {
-        color: "#fff",
-        fontSize: 24,
-        fontWeight: "bold",
+        backgroundColor: "#fafafa",
+        paddingTop: 50,
     },
 });
+
+export default Home;
