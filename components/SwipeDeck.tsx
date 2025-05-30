@@ -41,14 +41,24 @@ export const SwipeDeck = ({ data, onSwipeRight, onSwipeLeft }: SwipeDeckProps) =
             {data.slice(index).map((profile, i) => {
                 const isTop = i === 0;
                 return (
-                    <SwipeCard
+                    <View
                         key={profile.id}
-                        ref={isTop ? cardRef : null}
-                        profile={profile}
-                        onSwipeLeft={() => handleSwipe("left")}
-                        onSwipeRight={() => handleSwipe("right")}
-                        disabled={!isTop}
-                    />
+                        style={{
+                            position: "absolute",
+                            width: '100%', // Adjust the vertical spacing between cards
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <SwipeCard
+                            key={profile.id}
+                            ref={isTop ? cardRef : null}
+                            profile={profile}
+                            onSwipeLeft={() => handleSwipe("left")}
+                            onSwipeRight={() => handleSwipe("right")}
+                            disabled={!isTop}
+                        />
+                    </View>
                 );
             }).reverse()}
         </View>
