@@ -11,6 +11,7 @@ We chose to use React Native and Expo as framework, our final project needs to r
 
 Run `npm install` to install dependecies if there is a need.
 Run `npx expo start` to start server at localhost port 8081. Use the `-c` flag to clean the cache as starts.
+If Expo Go isn't starting the project, try `npm i -g @expo/ngrok@latest` then `npx expo start -c --tunnel`.
 
 ## Branches
 
