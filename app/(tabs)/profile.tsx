@@ -26,7 +26,7 @@ export default function Profile() {
       <View style={styles.form}>
 
         <Modal
-          animationType='slide'
+          animationType='fade'
           transparent={modalTransparent}
           visible={modalVisible}
           onRequestClose={() => {
