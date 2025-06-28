@@ -5,21 +5,47 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  Modal,
   Platform,
   Dimensions,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { Icon } from "@rneui/themed";
 import { Switch } from "../../components/Switch";
+import Formulario from "../../components/Formulario";
 
 export default function Profile() {
   const router = useRouter();
+
+  const [modalTransparent, setModalTransparent] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false)
   const [activeTab, setActiveTab] = useState<"posts" | "info">("posts");
-  
 
   return (
     <View style={styles.container}>
       <View style={styles.form}>
+
+        <Modal
+          animationType='fade'
+          transparent={modalTransparent}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible),
+            setModalTransparent(!modalTransparent)
+          }}
+        >
+          <Icon name="arrow-back" type="ionicon" color="black" size={24} 
+            onPress={() => {
+              setModalVisible(!modalVisible),
+              setModalTransparent(!modalTransparent)
+            }}
+          />
+          <View style={[styles.background]}>
+            <Formulario />
+          </View>
+        </Modal>
+
+
         {/* Top Section */}
         <View style={[styles.background, styles.topSection]}>
           <TouchableOpacity onPress={() => console.log("Settings pressed")}>
@@ -44,7 +70,7 @@ export default function Profile() {
             <TouchableOpacity onPress={() => console.log("Add pressed")}>
               <Icon name="add" type="ionicon" color="black" size={24} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log("Edit pressed")}>
+            <TouchableOpacity onPress={() => {setModalVisible(true), setModalTransparent(false)}}>
               <Icon name="pencil-outline" type="ionicon" color="black" size={24} />
             </TouchableOpacity>
           </View>
