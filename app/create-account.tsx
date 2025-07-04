@@ -1,13 +1,13 @@
+import { Icon, Input } from "@rneui/themed";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
+    Platform,
+    StyleSheet,
     Text,
     TouchableOpacity,
     View,
-    StyleSheet,
-    Platform,
 } from "react-native";
-import { Input, Icon } from "@rneui/themed";
-import { useRouter } from "expo-router";
 
 export default function CreateAccount() {
     const [password, setPassword] = useState("");
@@ -26,20 +26,18 @@ export default function CreateAccount() {
 
     return (
         <View style={styles.container}>
-            <View style={styles.form} accessibilityRole="form" accessibilityLabel="Create Account Form">
+            <View style={styles.form}>
                 <TouchableOpacity
                     onPress={() => router.navigate("/")}
                     style={[styles.backLink, {cursor: 'pointer'}]}
-                    accessibilityRole="link"
-                    accessibilityLabel="Voltar para a página inicial"
                 >
                     <Icon name="arrow-back" type="ionicon" color="#000" />
                 </TouchableOpacity>
                 <View style={{ width: "100%", alignItems: "center" }}>
-                    <Text style={styles.header} accessibilityRole="header" accessibilityLabel="Game On">
+                    <Text style={styles.header}>
                         Game On
                     </Text>
-                    <Text style={styles.subHeader} accessibilityRole="text" accessibilityLabel="Criar uma conta">
+                    <Text style={styles.subHeader}>
                         Criar uma conta
                     </Text>
                     <Input

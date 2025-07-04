@@ -1,18 +1,18 @@
+import { Icon } from "@rneui/themed";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
-  Text,
-  View,
-  StyleSheet,
+  Dimensions,
   Image,
-  TouchableOpacity,
   Modal,
   Platform,
-  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import { useRouter } from "expo-router";
-import { Icon } from "@rneui/themed";
-import { Switch } from "../../components/Switch";
 import Formulario from "../../components/Formulario";
+import { Switch } from "../../components/Switch";
 
 export default function Profile() {
   const router = useRouter();
@@ -105,7 +105,7 @@ const isWeb = Platform.OS === "web";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
 
-const maxWidth = isWeb ? {maxWidth: 400} : width;
+const maxWidth = isWeb ? 400 : width;
 
 const styles = StyleSheet.create({
   container: {

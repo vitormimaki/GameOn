@@ -1,15 +1,15 @@
+import AntDesign from '@expo/vector-icons/AntDesign';
+import { Picker } from '@react-native-picker/picker';
 import React, { useEffect, useState } from 'react';
 import {
-    View,
-    Text,
     Alert,
+    StyleSheet,
+    Text,
     TextInput,
     TouchableOpacity,
-    StyleSheet
+    View
 } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 import { MultiSelect } from 'react-native-element-dropdown';
-import AntDesign from '@expo/vector-icons/AntDesign';
 
 import * as Location from 'expo-location';
 // import axios from 'axios';
@@ -21,7 +21,8 @@ export default function Formulario() {
     const [idade, setIdade] = useState('');
     const [sexo, setSexo] = useState('');
     const [localizacao, setLocalizacao] = useState('');
-    const [selected, setSelected] = useState([]);
+    const [selected1, setSelected1] = useState([]);
+    const [selected2, setSelected2] = useState([]);
 
     const data = [
         { label: 'Item 1', value: '1', icon: 'smileo' },
@@ -151,7 +152,7 @@ export default function Formulario() {
                 selectedValue={sexo}
                 onValueChange={(itemValue) => setSexo(itemValue)}
             >
-                <Picker.Item label="Selecione o sexo" value="" />
+                <Picker.Item label="Selecione o Gênero" value="" />
                 <Picker.Item label="Masculino" value="m" />
                 <Picker.Item label="Feminino" value="f" />
                 <Picker.Item label="Não-Binário" value="nb" />
@@ -167,10 +168,10 @@ export default function Formulario() {
                 labelField="label"
                 valueField="value"
                 placeholder="Selecione os itens"
-                value={selected}
+                value={selected1}
                 search
                 searchPlaceholder="Buscar..."
-                onChange={setSelected}
+                onChange={setSelected1}
                 renderLeftIcon={() => (
                     <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
                 )}
@@ -195,10 +196,10 @@ export default function Formulario() {
                 labelField="label"
                 valueField="value"
                 placeholder="Selecione os itens"
-                value={selected}
+                value={selected2}
                 search
                 searchPlaceholder="Buscar..."
-                onChange={setSelected}
+                onChange={setSelected2}
                 renderLeftIcon={() => (
                     <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
                 )}

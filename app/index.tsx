@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Text, TouchableOpacity, View, StyleSheet, Platform } from "react-native";
-import { Input, Icon } from "@rneui/themed";
+import { Icon, Input } from "@rneui/themed";
 import { Link, useRouter } from "expo-router";
+import React, { useState } from "react";
+import { Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function Index() {
   const [showPassword, setShowPassword] = useState(false);
@@ -9,11 +9,11 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.form} accessibilityRole="form" accessibilityLabel="Login Form">
-        <Text style={styles.header} accessibilityRole="header" accessibilityLabel="Game On">
+      <View style={styles.form}>
+        <Text style={styles.header}>
           Game On
         </Text>
-        <Text style={styles.subHeader} accessibilityRole="text" accessibilityLabel="Entrar na sua conta">
+        <Text style={styles.subHeader}>
           Entrar
         </Text>
 
@@ -35,7 +35,7 @@ export default function Index() {
               onPress={() => setShowPassword(!showPassword)}
               accessibilityRole="button"
               accessibilityLabel={showPassword ? "Ocultar senha" : "Mostrar senha"}
-              style={[styles.iconButton, {cursor: 'default'}]}
+              style={styles.iconButton}
             >
               <Icon name={showPassword ? "eye" : "eye-slash"} type="font-awesome" color="#333" iconStyle={{cursor: 'pointer'}} />
             </TouchableOpacity>
